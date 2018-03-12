@@ -25,7 +25,7 @@ class FPDM
     const FPDM_VERBOSE = 3;
     const FPDM_PASSWORD_MAX_LEN = 15;
     const FPDM_REGEXPS = null;
-    
+
     protected $fpdm_regexps = array(
         "/Type" => "/\/Type\s+\/(\w+)$/",
         "/Subtype" => "/^\/Subtype\s+\/(\w+)$/"
