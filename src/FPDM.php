@@ -24,7 +24,9 @@ class FPDM
     const FPDM_COMMON = 2;
     const FPDM_VERBOSE = 3;
     const FPDM_PASSWORD_MAX_LEN = 15;
-    const FPDM_REGEXPS = array(
+    const FPDM_REGEXPS = null;
+    
+    protected $fpdm_regexps = array(
         "/Type" => "/\/Type\s+\/(\w+)$/",
         "/Subtype" => "/^\/Subtype\s+\/(\w+)$/"
     );
@@ -1509,7 +1511,7 @@ class FPDM
 
     protected function _extract_pdf_definition_value($name, $line, &$match)
     {
-        $value = preg_match(self::FPDM_REGEXPS["$name"], $line, $match);
+        $value = preg_match($this->fpdm_regexps["$name"], $line, $match);
         if (!$value) { //value is concatained with name: /name/value
             $value = preg_match("/" . preg_quote($name, '/') . "\/(\w+)/", $line, $match);
         }
@@ -1518,7 +1520,7 @@ class FPDM
 
     protected function extract_pdf_definition_value($name, $line, &$match)
     {
-        if (array_key_exists($name, self::FPDM_REGEXPS)) {
+        if (array_key_exists($name, $this->fpdm_regexps)) {
             $value = $this->_extract_pdf_definition_value($name, $line, $match);
         } else
             $this->Error("extract_pdf_definition_value() does not support definition '$name'");
